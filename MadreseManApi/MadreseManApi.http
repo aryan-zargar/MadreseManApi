@@ -1,0 +1,6 @@
+@MadreseManApi_HostAddress = http://localhost:5217
+
+GET {{MadreseManApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
