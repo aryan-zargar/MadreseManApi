@@ -4,6 +4,7 @@ using MadreseManCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MadreseManCore.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20260224170707_changed_tuition_payment")]
+    partial class changed_tuition_payment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -323,14 +326,11 @@ namespace MadreseManCore.Migrations
 
             modelBuilder.Entity("MadreseManModels.complications.TuitionPayment", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("payment_id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<int>("academic_year_id")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("payment_id"));
 
                     b.Property<int>("amount")
                         .HasColumnType("int");
@@ -370,7 +370,7 @@ namespace MadreseManCore.Migrations
                     b.Property<int>("student_id")
                         .HasColumnType("int");
 
-                    b.HasKey("id");
+                    b.HasKey("payment_id");
 
                     b.ToTable("tution_payment");
                 });

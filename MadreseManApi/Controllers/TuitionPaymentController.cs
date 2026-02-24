@@ -29,7 +29,7 @@ namespace MadreseManApi.Controllers
 
             if (_authContext.sessions.FirstOrDefault(e => e.SessionId == session) != null)
             {
-                return Ok(_context.tuition_payments.ToArray());
+                return Ok(_context.tuition_payment.ToArray());
             }
             else
             {
@@ -38,7 +38,7 @@ namespace MadreseManApi.Controllers
         }
 
         [HttpPost("Add")]
-        public IActionResult Create([FromBody] TuitionPayments entity, string? session)
+        public IActionResult Create([FromBody] TuitionPayment entity, string? session)
         {
             if (session == null)
             {
@@ -49,7 +49,7 @@ namespace MadreseManApi.Controllers
             {
                 try
                 {
-                    _context.tuition_payments.Add(entity);
+                    _context.tuition_payment.Add(entity);
                     _context.SaveChanges();
                     return Ok(entity);
                 }
@@ -65,7 +65,7 @@ namespace MadreseManApi.Controllers
         }
 
         [HttpPut("Update")]
-        public IActionResult Edit(string? session, [FromBody] TuitionPayments newEntity)
+        public IActionResult Edit(string? session, [FromBody] TuitionPayment newEntity)
         {
             if (session == null)
             {
@@ -74,12 +74,19 @@ namespace MadreseManApi.Controllers
 
             if (_authContext.sessions.FirstOrDefault(e => e.SessionId == session) != null)
             {
-                TuitionPayments entity = _context.tuition_payments.FirstOrDefault(e => e.payment_id == newEntity.payment_id);
-                entity.payment_date = newEntity.payment_date;
+                TuitionPayment entity = _context.tuition_payment.FirstOrDefault(e => e.id == newEntity.id);
+                entity.date = newEntity.date;
                 entity.description = newEntity.description;
                 entity.student_id = newEntity.student_id;
-                entity.amount_paid = newEntity.amount_paid;
+                entity.amount = newEntity.amount;
                 entity.attachment_id = newEntity.attachment_id;
+                entity.status = newEntity.status;
+                entity.academic_year_id = entity.academic_year_id;
+                entity.month = newEntity.month;
+                entity.discount = newEntity.discount;
+                entity.fine = newEntity.fine;
+                entity.net_amount   = newEntity.net_amount;
+                entity.due = newEntity.due;
 
 
                 _context.SaveChanges();
@@ -107,10 +114,10 @@ namespace MadreseManApi.Controllers
             {
                 if (_authContext.sessions.FirstOrDefault(e => e.SessionId == session) != null)
                 {
-                    TuitionPayments entity = _context.tuition_payments.FirstOrDefault(e => e.payment_id == id);
+                    TuitionPayment entity = _context.tuition_payment.FirstOrDefault(e => e.id == id);
                     if (entity != null)
                     {
-                        _context.tuition_payments.Remove(entity);
+                        _context.tuition_payment.Remove(entity);
                         _context.SaveChanges();
                         return Ok("Success !");
                     }
@@ -139,7 +146,7 @@ namespace MadreseManApi.Controllers
             }
             else
             {
-                TuitionPayments entity = _context.tuition_payments.FirstOrDefault(e => e.payment_id == id);
+                TuitionPayment entity = _context.tuition_payment.FirstOrDefault(e => e.id == id);
                 if (_authContext.sessions.FirstOrDefault(e => e.SessionId == session) != null)
                 {
                     if (entity != null)

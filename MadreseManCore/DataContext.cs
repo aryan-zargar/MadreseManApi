@@ -36,7 +36,7 @@ namespace MadreseManCore
 
         public DbSet<ReportCardEntry> report_card_entries { get; set; }
 
-        public DbSet<TuitionPayments> tuition_payments { get; set; }
+        public DbSet<TuitionPayment> tuition_payment { get; set; }
 
         public DbSet<GradeSubjectRelation> grade_subject_relations { get; set; }
 
